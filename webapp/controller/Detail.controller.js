@@ -22,7 +22,7 @@ sap.ui.define([
 		/* =========================================================== */
 
 		onInit: function() {
-			debugger;
+			
 			var oModel = new sap.ui.model.json.JSONModel();
 			var viewPf = this.getView();
 			oModel.setData(this._oLanesAndNodesWithLabels);
