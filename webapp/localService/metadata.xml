@@ -1,0 +1,58 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZPRUEBA_WF_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="WFInit" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ICTask"/>
+                </Key>
+                <Property Name="ICTask" Type="Edm.String" Nullable="false" MaxLength="14" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ECWiId" Type="Edm.String" Nullable="false" MaxLength="12" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Ticket" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idticket"/>
+                </Key>
+                <Property Name="Idticket" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DesTicket" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="TicketDetailSet" Relationship="ZPRUEBA_WF_SRV.PruebaTicket" FromRole="FromRole_PruebaTicket" ToRole="ToRole_PruebaTicket"/>
+            </EntityType>
+            <EntityType Name="TicketDetail" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Idticket"/>
+                </Key>
+                <Property Name="Idticket" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DesTicket" Type="Edm.String" Nullable="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Ticket" Relationship="ZPRUEBA_WF_SRV.PruebaTicket" FromRole="ToRole_PruebaTicket" ToRole="FromRole_PruebaTicket"/>
+            </EntityType>
+            <Association Name="PruebaTicket" sap:content-version="1">
+                <End Type="ZPRUEBA_WF_SRV.Ticket" Multiplicity="1" Role="FromRole_PruebaTicket"/>
+                <End Type="ZPRUEBA_WF_SRV.TicketDetail" Multiplicity="*" Role="ToRole_PruebaTicket"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_PruebaTicket">
+                        <PropertyRef Name="Idticket"/>
+                    </Principal>
+                    <Dependent Role="ToRole_PruebaTicket">
+                        <PropertyRef Name="Idticket"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZPRUEBA_WF_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="WFInitSet" EntityType="ZPRUEBA_WF_SRV.WFInit" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ticketSet" EntityType="ZPRUEBA_WF_SRV.Ticket" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TicketDetailSet" EntityType="ZPRUEBA_WF_SRV.TicketDetail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="PruebaTicketSet" Association="ZPRUEBA_WF_SRV.PruebaTicket" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ticketSet" Role="FromRole_PruebaTicket"/>
+                    <End EntitySet="TicketDetailSet" Role="ToRole_PruebaTicket"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZPRUEBA_WF_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZPRUEBA_WF_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

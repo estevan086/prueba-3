@@ -1,0 +1,91 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:flow="sap.suite.ui.commons" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="com.promigas.controller.Detail">
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<semantic:content>
+			<ObjectHeader id="objectHeader" title="{DesTicket}"/>
+			<!--<Panel>-->
+			<!--  <Label text="Process Flow sample with connection labels - zooming buttons and highlighted items"/>-->
+			<!--  <html:br/>-->
+			<!--  <Button text="Zoom In" press="onZoomIn"/>-->
+			<!--  <Button text="Zoom Out" press="onZoomOut"/>-->
+			<!--  <ToggleButton text="Toggle Connection Labels" pressed="true" press="onHideConnectionLabels"/>-->
+			<!--  <ToggleButton text="Toggle Highlighted Path" press="onHighlightPath"/>-->
+			<!--  <Button text="Reset Selected Path" press="onResetSelection"/>-->
+			<!--  </Panel>-->
+			<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter id="iconTabBarFilter1" icon="sap-icon://message-information" tooltip="{i18n>detailIconTabBarAttachments}"/>
+					<IconTabFilter id="iconTabBarFilter2" icon="sap-icon://process" tooltip="{i18n>detailIconTabBarInfo}">
+						<Panel>
+							<Label text="Process Flow sample with connection labels - zooming buttons and highlighted items"/>
+							<html:br />
+							<Button text="Zoom In" press="onZoomIn"/>
+							<Button text="Zoom Out" press="onZoomOut"/>
+							<ToggleButton text="Toggle Connection Labels" pressed="true" press="onHideConnectionLabels"/>
+							<ToggleButton text="Toggle Highlighted Path" press="onHighlightPath"/>
+							<Button text="Reset Selected Path" press="onResetSelection"/>
+							<flow:ProcessFlow id="processflow1" showLabels="true" scrollable="false" foldedCorners="true" wheelZoomable="false" nodePress="onNodePress" labelPress="onLabelPress" nodeTitlePress="onNodeTitlePress" nodes="{/nodes}" lanes="{/lanes}">
+								<flow:nodes>
+									<flow:ProcessFlowNode laneId="{lane}" nodeId="{id}" title="{title}" titleAbbreviation="{titleAbbreviation}" isTitleClickable="{isTitleClickable}" children="{children}" state="{state}" stateText="{stateText}" texts="{texts}" highlighted="{highlighted}" focused="{focused}" type="{type}"/>
+								</flow:nodes>
+								<flow:lanes>
+									<flow:ProcessFlowLaneHeader laneId="{id}" iconSrc="{icon}" text="{label}" position="{position}"/>
+								</flow:lanes>
+							</flow:ProcessFlow>
+						</Panel>
+					</IconTabFilter>
+					<IconTabFilter id="iconTabBarFilter3" icon="sap-icon://attachment" tooltip="{i18n>detailIconTabBarAttachments}"/>
+				</items>
+			</IconTabBar>
+			<!--			<Table-->
+			<!--				id="lineItemsList"-->
+			<!--				width="auto"-->
+			<!--				items="{TicketDetailSet}"-->
+			<!--				updateFinished="onListUpdateFinished"-->
+			<!--				noDataText="{i18n>detailLineItemTableNoDataText}"-->
+			<!--				busyIndicatorDelay="{detailView>/lineItemTableDelay}"-->
+			<!--				class="sapUiResponsiveMargin">-->
+			<!--				<headerToolbar>-->
+			<!--					<Toolbar id="lineItemsToolbar">-->
+			<!--						<Title-->
+			<!--							id="lineItemsHeader"-->
+			<!--							text="{detailView>/lineItemListTitle}"/>-->
+			<!--					</Toolbar>-->
+			<!--				</headerToolbar>-->
+			<!--				<columns>-->
+			<!--					<Column>-->
+			<!--						<Text text="{i18n>detailLineItemTableIDColumn}"/>-->
+			<!--					</Column>-->
+			<!--					<Column-->
+			<!--						minScreenWidth="Tablet"-->
+			<!--						demandPopin="true"-->
+			<!--						hAlign="Right">-->
+			<!--						<Text text="{i18n>detailLineItemTableUnitNumberColumn}"/>-->
+			<!--					</Column>-->
+			<!--				</columns>-->
+			<!--				<items>-->
+			<!--					<ColumnListItem>-->
+			<!--						<cells>-->
+			<!--							<ObjectIdentifier-->
+			<!--								title="{DesTicket}"-->
+			<!--								text="{Idticket}"/>-->
+			<!--							<ObjectNumber-->
+			<!--/>-->
+			<!--						</cells>-->
+			<!--					</ColumnListItem>-->
+			<!--				</items>-->
+			<!--			</Table>-->
+		</semantic:content>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+		<semantic:shareInJamAction>
+			<semantic:ShareInJamAction id="shareInJam" visible="{FLP>/isShareInJamActive}" press="onShareInJamPress"/>
+		</semantic:shareInJamAction>
+		<semantic:saveAsTileAction>
+			<footerbar:AddBookmarkButton id="shareTile" title="{detailView>/saveAsTileTitle}"/>
+		</semantic:saveAsTileAction>
+	<semantic:customFooterContent>
+	    <Button text="Guardar Ticket" width="100px" id="__button5" iconFirst="false" type="Emphasized" activeIcon="sap-icon://employee-approvals"/>
+	</semantic:customFooterContent>
+	</semantic:DetailPage>
+</mvc:View>
